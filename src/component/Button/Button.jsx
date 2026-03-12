@@ -1,10 +1,9 @@
 // import React from 'react'
 import styles from "./Button.module.css";
 
+
 const Button = (props) => {
-
-  const { type, disabled, children, onClick } = props;
-
+  const { type, disabled, onClick, children } = props;
   // const handleClick = () => {
   //   alert("click")
   // }
