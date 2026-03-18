@@ -1,10 +1,11 @@
 // import React from "react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import QuizButton from "../component/Button/QuizButton";
 import QuizDesplay from "../component/QuizDisplay/QuizDesplay";
 import quizData from "../data/quiz";
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../const";
 
 const QuizPage = () => {
   const [quizIndex, setQuizIndex] = useState(0);
@@ -21,9 +22,23 @@ const QuizPage = () => {
     setQuizIndex((prev) => prev + 1);
   };
 
+  useEffect(() => {
+    if (answerLogs.length === MAX_QUIZ_LEN) {
+      const correctNum = answerLogs.filter((answer) => {
+        return answer === true;
+      });
+      navigation(ROUTES.RESULT, {
+        state: {
+          maxQuizLen: MAX_QUIZ_LEN,
+          correctNum: correctNum,
+        },
+      });
+    }
+  }, [answerLogs]);
+
   return (
     <div>
-      <QuizDesplay>{`Q1. ${quizData[quizIndex].question}`}</QuizDesplay>
+      {<QuizDesplay>{`Q1. ${quizData[quizIndex].question}`}</QuizDesplay>}
       {quizData[quizIndex].options.map((option, index) => {
         return (
           <QuizButton
