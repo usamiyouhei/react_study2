@@ -1,13 +1,21 @@
 // import React from "react";
 
+import { useState } from "react";
 import QuizButton from "../component/Button/QuizButton";
 import QuizDesplay from "../component/QuizDisplay/QuizDesplay";
 import quizData from "../data/quiz";
 
 const QuizPage = () => {
-  const quizIndex = 0;
+  const [quizIndex, setQuizIndex] = useState(0);
+  const [answerLogs, setAnswerLogs] = useState([]);
+
   const handleClick = (clickedIndex) => {
-    console.log("clickedIndex:", clickedIndex);
+    if (clickedIndex === quizData[quizIndex].answerIndex) {
+      setAnswerLogs((prev) => [...prev, true]);
+    } else {
+      setAnswerLogs((prev) => [...prev, false]);
+    }
+    setQuizIndex((prev) => prev + 1);
   };
 
   return (
