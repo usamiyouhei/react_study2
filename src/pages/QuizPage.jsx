@@ -34,21 +34,24 @@ const QuizPage = () => {
         },
       });
     }
-  }, [answerLogs]);
+  }, [answerLogs, MAX_QUIZ_LEN, navigation]);
 
   return (
     <div>
-      {<QuizDesplay>{`Q1. ${quizData[quizIndex].question}`}</QuizDesplay>}
-      {quizData[quizIndex].options.map((option, index) => {
-        return (
-          <QuizButton
-            key={`option-${index}`}
-            onClick={() => handleClick(index)}
-          >
-            {option}
-          </QuizButton>
-        );
-      })}
+      {quizData[quizIndex] && (
+        <QuizDesplay>{`Q1. ${quizData[quizIndex].question}`}</QuizDesplay>
+      )}
+      {quizData[quizIndex] &&
+        quizData[quizIndex].options.map((option, index) => {
+          return (
+            <QuizButton
+              key={`option-${index}`}
+              onClick={() => handleClick(index)}
+            >
+              {option}
+            </QuizButton>
+          );
+        })}
     </div>
   );
 };
