@@ -30,7 +30,7 @@ const QuizPage = () => {
       navigation(ROUTES.RESULT, {
         state: {
           maxQuizLen: MAX_QUIZ_LEN,
-          correctNum: correctNum,
+          correctNumLen: correctNum.length,
         },
       });
     }
@@ -39,7 +39,7 @@ const QuizPage = () => {
   return (
     <div>
       {quizData[quizIndex] && (
-        <QuizDesplay>{`Q1. ${quizData[quizIndex].question}`}</QuizDesplay>
+        <QuizDesplay>{`Q${quizIndex + 1}. ${quizData[quizIndex].question}`}</QuizDesplay>
       )}
       {quizData[quizIndex] &&
         quizData[quizIndex].options.map((option, index) => {
