@@ -1,9 +1,9 @@
 // import React from 'react'
 import styles from "./Loading.module.css";
 
-const Loading = () => {
+const Loading = ({ active }) => {
   return (
-    <div>
+    <div className={`${styles.loading} ${active ? styles.isActive : ""}`}>
       <span>〜結果発表〜</span>
     </div>
   );
