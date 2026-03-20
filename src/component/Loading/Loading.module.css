@@ -1,3 +1,12 @@
+@keyframes gakuburu {
+  50% {
+    transform: translateX(3px);
+  }
+  100% {
+    transform: rotateX(-3%);
+  }
+}
+
 .loading {
   position: fixed;
   z-index: 999;
@@ -10,4 +19,13 @@
   align-items: center;
   justify-content: center;
   font-size: 50px;
+  transition: transform ease-in-out 0.5s;
+
+  > span {
+    animation: gakuburu 0.1s infinite;
+  }
+
+  &.isActive {
+    transform: translateY(-100%);
+  }
 }
