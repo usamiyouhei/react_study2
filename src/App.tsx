@@ -1,6 +1,7 @@
 // import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import "./App.css";
+import type { Priority } from "./domain/Task";
 // import { ROUTES } from "./const";
 // import QuizHome from "./pages/QuizHome";
 // import QuizPage from "./pages/QuizPage";
@@ -24,7 +25,7 @@ function App() {
   //   }
   // }, [count])
   const [title, setTitle] = useState("");
-  const [priority, setPriority] = useState("low");
+  const [priority, setPriority] = useState<Priority>("medium");
   return (
     <>
       {/* <h1>Hello World</h1>
