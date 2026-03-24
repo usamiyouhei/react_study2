@@ -2,7 +2,7 @@
 import { FormEvent, useState } from "react";
 import "./App.css";
 import type { Priority, Task } from "./domain/Task";
-import { FaCheck } from "react-icons/fa";
+import { FaCheck, FaTrash } from "react-icons/fa";
 // import { ROUTES } from "./const";
 // import QuizHome from "./pages/QuizHome";
 // import QuizPage from "./pages/QuizPage";
@@ -43,6 +43,18 @@ function App() {
     setTasks([...tasks, newTask]);
     setTitle("");
     setPriority("medium");
+  };
+
+  const handleToggleTask = (id: string) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task,
+      ),
+    );
+  };
+
+  const handleDeleteTask = (id: string) => {
+    setTasks(tasks.filter((task) => task.id !== id));
   };
   return (
     <>
@@ -115,6 +127,13 @@ function App() {
                     >
                       {/* {task.completed ? "未完了" : "完了"} */}
                       <FaCheck />
+                    </button>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDeleteTask(task.id)}
+                      aria-label="タスク削除"
+                    >
+                      <FaTrash />
                     </button>
                   </div>
                 </li>
