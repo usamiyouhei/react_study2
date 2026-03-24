@@ -1,7 +1,8 @@
 // import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import "./App.css";
-import type { Priority } from "./domain/Task";
+import type { Priority, Task } from "./domain/Task";
+import { FaCheck } from "react-icons/fa";
 // import { ROUTES } from "./const";
 // import QuizHome from "./pages/QuizHome";
 // import QuizPage from "./pages/QuizPage";
@@ -26,6 +27,23 @@ function App() {
   // }, [count])
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState<Priority>("medium");
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  const handleAddTask = (e: FormEvent) => {
+    e.preventDefault();
+
+    if (!title) return;
+
+    const newTask: Task = {
+      id: Date.now().toString(),
+      title,
+      completed: false,
+      priority,
+    };
+    setTasks([...tasks, newTask]);
+    setTitle("");
+    setPriority("medium");
+  };
   return (
     <>
       {/* <h1>Hello World</h1>
@@ -51,7 +69,7 @@ function App() {
         </header>
 
         <div className="task-container">
-          <form action="" className="task-form" onSubmit={() => {}}>
+          <form action="" className="task-form" onSubmit={handleAddTask}>
             <input
               type="text"
               value={title}
@@ -60,13 +78,49 @@ function App() {
             />
             <select
               value={priority}
-              onChange={(e) => setPriority(e.target.value)}
+              onChange={(e) => setPriority(e.target.value as Priority)}
             >
-              <option value="low">低い</option>
+              <option value="low">低</option>
               <option value="medium">中</option>
-              <option value="high">高い</option>
+              <option value="high">高</option>
             </select>
+            <button type="submit">追加</button>
           </form>
+          {tasks.length === 0 ? (
+            <p className="empty-message">
+              タスクがありません。新しいタスクを追加してください。
+            </p>
+          ) : (
+            <ul className="task-list">
+              {tasks.map((task) => (
+                <li
+                  key={task.id}
+                  className={`task-item ${task.completed ? "completed" : ""}`}
+                >
+                  <div>
+                    <span className={`task-priority priority-${task.priority}`}>
+                      {task.priority}
+                    </span>
+                    <span className="task-title">{task.title}</span>
+                  </div>
+                  <div className="task-actions">
+                    <button
+                      className="toggle-btn"
+                      onClick={() => handleToggleTask(task.id)}
+                      aria-label={
+                        task.completed
+                          ? "タスクを未完了にする"
+                          : "タスクを完了にする"
+                      }
+                    >
+                      {/* {task.completed ? "未完了" : "完了"} */}
+                      <FaCheck />
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </>
