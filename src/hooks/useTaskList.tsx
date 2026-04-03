@@ -26,4 +26,11 @@ export function useTaskList() {
   const deleteTask = (id: string) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
+
+  return {
+    tasks,
+    addTask,
+    toggleTask,
+    deleteTask,
+  };
 }

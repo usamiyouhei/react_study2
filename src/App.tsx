@@ -3,7 +3,11 @@ import { FormEvent, useState } from "react";
 import "./App.css";
 import type { Priority, Task } from "./domain/Task";
 import { FaCheck, FaTrash } from "react-icons/fa";
-import TaskListContainer from "./component/TaskList/TaskListContainer";
+// import TaskListContainer from "./component/TaskList/TaskListContainer";
+import { useTaskList } from "./hooks/useTaskList";
+// import TaskFormPresenter from "./component/TaskForm/TaskFormPresenter";
+import TaskForm from "./component/TaskForm/TaskForm";
+import TaskList from "./component/TaskList/TaskList";
 // import { ROUTES } from "./const";
 // import QuizHome from "./pages/QuizHome";
 // import QuizPage from "./pages/QuizPage";
@@ -14,6 +18,7 @@ import TaskListContainer from "./component/TaskList/TaskListContainer";
 // import Display from './component/Display/Display'
 
 function App() {
+  const { tasks, addTask, toggleTask, deleteTask } = useTaskList();
   //   const [count, setCount] = useState(0)
 
   //   const handleClick = () => {
@@ -50,8 +55,12 @@ function App() {
         <header className="app-header">
           <h1>タスク管理アプリ</h1>
         </header>
-
-        <TaskListContainer />
+        <TaskForm onAddTask={addTask} />
+        <TaskList
+          tasks={tasks}
+          onToggleTask={toggleTask}
+          onDeleteTask={deleteTask}
+        />
       </div>
     </>
   );
