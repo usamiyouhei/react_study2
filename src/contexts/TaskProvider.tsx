@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Priority, Task } from "../domain/Task";
+import { TaskContext } from "./TaskContext";
 
 interface TaskProviderProps {
   children: React.ReactNode;
@@ -19,5 +20,24 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
     setTasks([...tasks, newTask]);
   };
 
-  const toggleTask = (id: string) => {};
+  const toggleTask = (id: string) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task,
+      ),
+    );
+  };
+
+  const deleteTask = (id: string) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+
+  const value = {
+    tasks,
+    addTask,
+    toggleTask,
+    deleteTask,
+  };
+
+  return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>;
 };
