@@ -6,8 +6,10 @@ import { FaCheck, FaTrash } from "react-icons/fa";
 // import TaskListContainer from "./component/TaskList/TaskListContainer";
 import { useTaskList } from "./hooks/useTaskList";
 // import TaskFormPresenter from "./component/TaskForm/TaskFormPresenter";
-import TaskForm from "./component/TaskForm/TaskForm";
-import TaskList from "./component/TaskList/TaskList";
+import TaskForm from "./components/TaskForm/TaskForm";
+import TaskList from "./components/TaskList/TaskList";
+import { TaskProvider } from "./contexts/TaskProvider";
+import { useTaskContext } from "./contexts/TaskContext";
 // import { ROUTES } from "./const";
 // import QuizHome from "./pages/QuizHome";
 // import QuizPage from "./pages/QuizPage";
@@ -17,8 +19,8 @@ import TaskList from "./component/TaskList/TaskList";
 // import Button from './component/Button/Button'
 // import Display from './component/Display/Display'
 
-function App() {
-  const { tasks, addTask, toggleTask, deleteTask } = useTaskList();
+const App: React.FC = () => {
+  // const { tasks, addTask, toggleTask, deleteTask } = useTaskList();
   //   const [count, setCount] = useState(0)
 
   //   const handleClick = () => {
@@ -51,7 +53,7 @@ function App() {
           <Route path={ROUTES.RESULT} element={<ResultPage />} />
         </Routes>
       </BrowserRouter> */}
-      <div className="app">
+      {/* <div className="app">
         <header className="app-header">
           <h1>タスク管理アプリ</h1>
         </header>
@@ -61,9 +63,29 @@ function App() {
           onToggleTask={toggleTask}
           onDeleteTask={deleteTask}
         />
-      </div>
+      </div> */}
+      <TaskProvider>
+        <MainContent />
+      </TaskProvider>
     </>
   );
-}
+};
+
+const MainContent: React.FC = () => {
+  const { tasks, toggleTask, deleteTask } = useTaskContext();
+  return (
+    <div className="app">
+      <header className="app-header">
+        <h1>タスク管理アプリ</h1>
+      </header>
+      <TaskForm />
+      <TaskList
+        tasks={tasks}
+        onToggleTask={toggleTask}
+        onDeleteTask={deleteTask}
+      />
+    </div>
+  );
+};
 
 export default App;
