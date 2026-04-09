@@ -1,6 +1,7 @@
 import React from "react";
 import { Task } from "../../domain/Task";
 import { FaCheck, FaTrash } from "react-icons/fa";
+import { TaskCard } from "../TaskCard.tsx/TaskCard";
 
 type TaskListPresenterProps = {
   tasks: Task[];
@@ -20,7 +21,13 @@ const TaskListPresenter: React.FC<TaskListPresenterProps> = ({
         <li
           key={task.id}
           className={`task-item ${task.completed ? "completed" : ""}`}
-        ></li>
+        >
+          <TaskCard task={task} onToggle={onToggleTask} onDelete={onDeleteTask}>
+            <TaskCard.Priority />
+            <TaskCard.Title />
+            <TaskCard.Actions />
+          </TaskCard>
+        </li>
       ))}
     </ul>
   );
