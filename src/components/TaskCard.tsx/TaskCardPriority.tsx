@@ -5,7 +5,7 @@ export const TaskCardPriority: React.FC = () => {
 
   return (
     <>
-      <span className="task-priority priority-${task.priority}">
+      <span className={`task-priority priority-${task.priority}`}>
         {task.priority}
       </span>
     </>

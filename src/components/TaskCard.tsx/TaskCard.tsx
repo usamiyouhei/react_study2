@@ -27,5 +27,5 @@ export const TaskCardBase: React.FC<TaskProps> = ({
 export const TaskCard = Object.assign(TaskCardBase, {
   Title: TaskCardTitle,
   Priority: TaskCardPriority,
-  Action: TaskCardActions,
+  Actions: TaskCardActions,
 });
