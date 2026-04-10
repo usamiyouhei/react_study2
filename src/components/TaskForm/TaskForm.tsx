@@ -2,12 +2,12 @@ import React, { FormEvent, useState } from "react";
 import type { Priority } from "../../domain/Task";
 import { useTaskContext } from "../../contexts/TaskContext";
 
-// type TaskFormPresenterProps = {
-//   onAddTask: (title: string, priority: Priority) => void;
-// };
+type TaskFormPresenterProps = {
+  onAddTask: (title: string, priority: Priority) => void;
+};
 
-const TaskFormPresenter: React.FC = () => {
-  const { addTask: onAddTask } = useTaskContext();
+const TaskFormPresenter: React.FC<TaskFormPresenterProps> = ({ onAddTask }) => {
+  // const { addTask: onAddTask } = useTaskContext();
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState<Priority>("medium");
 
