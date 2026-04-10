@@ -10,7 +10,12 @@ import TaskForm from "./components/TaskForm/TaskForm";
 import TaskList from "./components/TaskList/TaskList";
 import { TaskProvider } from "./contexts/TaskProvider";
 import { useTaskContext } from "./contexts/TaskContext";
-import { useTaskReducer } from "./hooks/useTaskReducer";
+import {
+  TaskActionType,
+  taskReducer,
+  useTaskReducer,
+} from "./hooks/useTaskReducer";
+import type { TaskState, TaskAction } from "./hooks/useTaskReducer";
 // import { ROUTES } from "./const";
 // import QuizHome from "./pages/QuizHome";
 // import QuizPage from "./pages/QuizPage";
@@ -79,7 +84,27 @@ const MainContent: React.FC = () => {
     addTask,
     toggleTask,
     deleteTask,
-  } = useTaskReducer({ initialTasks });
+  } = useTaskReducer({
+    initialTasks,
+    reducer(currentState: TaskState, action: TaskAction): TaskState {
+      const changes = taskReducer(currentState, action);
+
+      if (action.type === TaskActionType.ADD) {
+        return {
+          tasks: [
+            ...changes.tasks,
+            {
+              id: Date.now().toString(),
+              title: "COPY",
+              priority: "low",
+              completed: false,
+            },
+          ],
+        };
+      }
+      return changes;
+    },
+  });
 
   // const { tasks, toggleTask, deleteTask } = useTaskContext();
   return (
