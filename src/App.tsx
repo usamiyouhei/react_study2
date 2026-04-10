@@ -10,6 +10,7 @@ import TaskForm from "./components/TaskForm/TaskForm";
 import TaskList from "./components/TaskList/TaskList";
 import { TaskProvider } from "./contexts/TaskProvider";
 import { useTaskContext } from "./contexts/TaskContext";
+import { useTaskReducer } from "./hooks/useTaskReducer";
 // import { ROUTES } from "./const";
 // import QuizHome from "./pages/QuizHome";
 // import QuizPage from "./pages/QuizPage";
@@ -72,13 +73,21 @@ const App: React.FC = () => {
 };
 
 const MainContent: React.FC = () => {
-  const { tasks, toggleTask, deleteTask } = useTaskContext();
+  const initialTasks: Task[] = [];
+  const {
+    state: { tasks },
+    addTask,
+    toggleTask,
+    deleteTask,
+  } = useTaskReducer({ initialTasks });
+
+  // const { tasks, toggleTask, deleteTask } = useTaskContext();
   return (
     <div className="app">
       <header className="app-header">
         <h1>タスク管理アプリ</h1>
       </header>
-      <TaskForm />
+      <TaskForm onAddTask={addTask} />
       <TaskList
         tasks={tasks}
         onToggleTask={toggleTask}
