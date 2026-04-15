@@ -6,9 +6,12 @@ export const TaskList = () => {
   const deleteTask = useTaskStore((state) => state.deleteTask);
 
   return (
-    <ul>
+    <ul className="task-list">
       {tasks.map((task) => (
-        <li key={task.id}>
+        <li
+          className={`task-item ${task.completed ? "completed" : ""}`}
+          key={task.id}
+        >
           <span onClick={() => toggleTask(task.id)}>
             {task.completed ? "✔︎" : "▫️"}
             {task.title}
