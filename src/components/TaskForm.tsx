@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useTaskStore } from "../store/task.store";
+import { Priority } from "../domain/Task";
 
 export const TaskForm = () => {
   const addTask = useTaskStore((state) => state.addTask);
   const [title, setTitle] = useState("");
-  const [priority, setPriority] = useState("medium");
+  const [priority, setPriority] = useState<Priority>("medium");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
