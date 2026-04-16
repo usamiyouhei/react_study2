@@ -6,8 +6,7 @@ import { FaCheck, FaTrash } from "react-icons/fa";
 // import TaskListContainer from "./component/TaskList/TaskListContainer";
 import { useTaskList } from "./hooks/useTaskList";
 // import TaskFormPresenter from "./component/TaskForm/TaskFormPresenter";
-import TaskForm from "./components/TaskForm/TaskForm";
-import TaskList from "./components/TaskList/TaskList";
+
 import { TaskProvider } from "./contexts/TaskProvider";
 import { useTaskContext } from "./contexts/TaskContext";
 import {
@@ -16,6 +15,8 @@ import {
   useTaskReducer,
 } from "./hooks/useTaskReducer";
 import type { TaskState, TaskAction } from "./hooks/useTaskReducer";
+import { TaskForm } from "./components/TaskForm";
+import { TaskList } from "./components/TaskList";
 // import { ROUTES } from "./const";
 // import QuizHome from "./pages/QuizHome";
 // import QuizPage from "./pages/QuizPage";
@@ -70,56 +71,66 @@ const App: React.FC = () => {
           onDeleteTask={deleteTask}
         />
       </div> */}
-      <TaskProvider>
+      {/* <TaskProvider>
         <MainContent />
-      </TaskProvider>
+      </TaskProvider> */}
+
+      {/*  Zustand */}
+      <div className="app">
+        <header className="app-header">
+          <h1>タスク管理アプリ</h1>
+        </header>
+
+        <TaskForm />
+        <TaskList />
+      </div>
     </>
   );
 };
 
-const MainContent: React.FC = () => {
-  const initialTasks: Task[] = [];
-  const {
-    state: { tasks },
-    addTask,
-    toggleTask,
-    deleteTask,
-  } = useTaskReducer({
-    initialTasks,
-    reducer(currentState: TaskState, action: TaskAction): TaskState {
-      const changes = taskReducer(currentState, action);
+// const MainContent: React.FC = () => {
+//   const initialTasks: Task[] = [];
+//   const {
+//     state: { tasks },
+//     addTask,
+//     toggleTask,
+//     deleteTask,
+//   } = useTaskReducer({
+//     initialTasks,
+//     reducer(currentState: TaskState, action: TaskAction): TaskState {
+//       const changes = taskReducer(currentState, action);
 
-      if (action.type === TaskActionType.ADD) {
-        return {
-          tasks: [
-            ...changes.tasks,
-            {
-              id: Date.now().toString(),
-              title: "COPY",
-              priority: "low",
-              completed: false,
-            },
-          ],
-        };
-      }
-      return changes;
-    },
-  });
+//       if (action.type === TaskActionType.ADD) {
+//         return {
+//           tasks: [
+//             ...changes.tasks,
+//             {
+//               id: Date.now().toString(),
+//               title: "COPY",
+//               priority: "low",
+//               completed: false,
+//             },
+//           ],
+//         };
+//       }
+//       return changes;
+//     },
+//   });
 
-  // const { tasks, toggleTask, deleteTask } = useTaskContext();
-  return (
-    <div className="app">
-      <header className="app-header">
-        <h1>タスク管理アプリ</h1>
-      </header>
-      <TaskForm onAddTask={addTask} />
-      <TaskList
-        tasks={tasks}
-        onToggleTask={toggleTask}
-        onDeleteTask={deleteTask}
-      />
-    </div>
-  );
-};
+// const { tasks, toggleTask, deleteTask } = useTaskContext();
+//   return (
+//     <div className="app">
+//       <header className="app-header">
+//         <h1>タスク管理アプリ</h1>
+//       </header>
+//       <TaskForm onAddTask={addTask} />
+//       <TaskList
+//         tasks={tasks}
+//         onToggleTask={toggleTask}
+//         onDeleteTask={deleteTask}
+//       />
+//     </div>
+//   );
+// };
 
 export default App;

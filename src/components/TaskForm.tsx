@@ -16,13 +16,21 @@ export const TaskForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="task-form" onSubmit={handleSubmit}>
       <input
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <button type="submit"></button>
+      <select
+        value={priority}
+        onChange={(e) => setPriority(e.target.value as Priority)}
+      >
+        <option value="low">低</option>
+        <option value="medium">中</option>
+        <option value="high">高</option>
+      </select>
+      <button type="submit">追加</button>
     </form>
   );
 };
